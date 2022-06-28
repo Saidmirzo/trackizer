@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 
 import './const.dart';
 
@@ -8,29 +8,30 @@ class TrackizerPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool press=true;
+    int _page = 0;
+  GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
+    bool press = true;
     //var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: const Color(0xff1C1C23),
-      // floatingActionButton: FloatingActionButton(
-      //     //params
-      //     ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: AnimatedBottomNavigationBar(
-        icons: const [
-          Icons.home,
-          Icons.menu,
-          Icons.ad_units,
-          Icons.ad_units,
-          Icons.add
-        ],
-        activeIndex: 2,
-        gapLocation: GapLocation.end,
-        notchSmoothness: NotchSmoothness.softEdge,
-        onTap: (index) {},
-        //other params
-      ),
+      //---------------------------------------------------------
+      
+      bottomNavigationBar: CurvedNavigationBar(
+    backgroundColor: const Color(0xff1C1C23),
+    items:const  <Widget>[
+      Icon(Icons.home, size: 30),
+      Icon(Icons.list, size: 30),
+      Icon(Icons.add, size: 30),
+      Icon(Icons.calendar_month, size: 30),
+      Icon(Icons.card_giftcard, size: 30),
+    ],
+    onTap: (index) {
+      
+    },
+  ),
+  
+        //----------------------------------------------------------
       appBar: AppBar(
         elevation: 0,
         actions: const [Icon(Icons.settings)],
@@ -65,7 +66,6 @@ class TrackizerPage extends StatelessWidget {
                 ),
               ),
               Container(
-                
                 margin: EdgeInsets.only(top: 25),
                 height: 50,
                 width: 350,
