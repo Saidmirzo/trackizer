@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:simple_circular_progress_bar/simple_circular_progress_bar.dart';
 
 import './const.dart';
 
@@ -8,30 +9,26 @@ class TrackizerPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int _page = 0;
-  GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
     bool press = true;
     //var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: const Color(0xff1C1C23),
       //---------------------------------------------------------
-      
+
       bottomNavigationBar: CurvedNavigationBar(
-    backgroundColor: const Color(0xff1C1C23),
-    items:const  <Widget>[
-      Icon(Icons.home, size: 30),
-      Icon(Icons.list, size: 30),
-      Icon(Icons.add, size: 30),
-      Icon(Icons.calendar_month, size: 30),
-      Icon(Icons.card_giftcard, size: 30),
-    ],
-    onTap: (index) {
-      
-    },
-  ),
-  
-        //----------------------------------------------------------
+        backgroundColor: const Color(0xff1C1C23),
+        items: const <Widget>[
+          Icon(Icons.home, size: 30),
+          Icon(Icons.list, size: 30),
+          Icon(Icons.add, size: 30),
+          Icon(Icons.calendar_month, size: 30),
+          Icon(Icons.card_giftcard, size: 30),
+        ],
+        onTap: (index) {},
+      ),
+
+      //----------------------------------------------------------
       appBar: AppBar(
         elevation: 0,
         actions: const [Icon(Icons.settings)],
@@ -52,17 +49,34 @@ class TrackizerPage extends StatelessWidget {
                     bottomRight: Radius.circular(40),
                   ),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.only(bottom: 35),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      list_btn('Active suns', '12', const Color(0xffFFA699)),
-                      list_btn('Active suns', '12', const Color(0xffAD7BFF)),
-                      list_btn('Active suns', '12', const Color(0xff7DFFEE)),
-                    ],
-                  ),
+                child: Column(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.all(30),
+                      child: const SimpleCircularProgressBar(
+                        startAngle: 220,
+                        progressStrokeWidth: 10,
+                        backStrokeWidth: 10,
+                        maxValue: 70,
+                        size: 50,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 150),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          list_btn(
+                              'Active suns', '12', const Color(0xffFFA699)),
+                          list_btn(
+                              'Active suns', '12', const Color(0xffAD7BFF)),
+                          list_btn(
+                              'Active suns', '12', const Color(0xff7DFFEE)),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ),
               Container(
@@ -80,10 +94,14 @@ class TrackizerPage extends StatelessWidget {
                       height: 33,
                       width: 160,
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          color: const Color(0xff1B1B22)),
+                        borderRadius: BorderRadius.circular(15),
+                        color:
+                            press ? const Color(0xff1B1B22) : const Color(0xff0E0E12),
+                      ),
                       child: TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          press = false;
+                        },
                         child: Text(
                           'Your subscriptions',
                           style: sTextStyle(color: Colors.white, size: 14),
@@ -95,9 +113,12 @@ class TrackizerPage extends StatelessWidget {
                       width: 160,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
+                        color: press ? const Color(0xff1B1B22) : const Color(0xff0E0E12),
                       ),
                       child: TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          press = true;
+                        },
                         child: Text(
                           'Upcoming bills',
                           style: sTextStyle(color: Colors.white, size: 14),
@@ -177,7 +198,8 @@ class TrackizerPage extends StatelessWidget {
                 ),
                 child: Align(
                   alignment: Alignment.center,
-                  child: Container(
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 15),
                     child: Column(
                       children: [
                         Text(
